@@ -18,7 +18,7 @@ namespace Hotel.HolidayINN.Console
 
 
 
-            /*if(serviceDictionary.AddProperty(new PropertyDTO("WiFi", "")))
+            if (serviceDictionary.AddProperty(new PropertyDTO("WiFi", "")))
                 System.Console.WriteLine("Property successfully added");
             if (serviceDictionary.AddProperty(new PropertyDTO("Refrigerator", "")))
                 System.Console.WriteLine("Property successfully added");
@@ -28,10 +28,28 @@ namespace Hotel.HolidayINN.Console
             if (serviceDictionary.AddFurniture(new FurnitureDTO("Sofa", "", true, 1)))
                 System.Console.WriteLine("Furniture successfully added");
             if (serviceDictionary.AddFurniture(new FurnitureDTO("Bed", "", true, 2)))
-                System.Console.WriteLine("Furniture successfully added");*/
+                System.Console.WriteLine("Furniture successfully added");
 
-            /*if(serviceRoom.AddRoom(new RoomDTO("101A", RoomType.Standart, 1)))
-                System.Console.WriteLine("Room added");*/
+            if (serviceRoom.AddRoom(new RoomDTO("101A", RoomType.Standart, 1)))
+                System.Console.WriteLine("Room added");
+
+            if (serviceRoom.AddPropertyToRoom(1, 1))
+                System.Console.WriteLine("Property added to room");
+            if (serviceRoom.AddPropertyToRoom(1, 2))
+                System.Console.WriteLine("Property added to room");
+            if (serviceRoom.AddPropertyToRoom(2, 1))
+                System.Console.WriteLine("Property added to room");
+            if (serviceRoom.AddPropertyToRoom(2, 2))
+                System.Console.WriteLine("Property added to room");
+            if (serviceRoom.AddPropertyToRoom(2, 3))
+                System.Console.WriteLine("Property added to room");
+
+            foreach (RoomDTO room in serviceRoom.GetAllRooms())
+            {
+                System.Console.WriteLine(room);
+                System.Console.WriteLine(room.ShowProperties());
+            }
+
 
         }
     }

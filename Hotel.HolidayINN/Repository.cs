@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using Hotel.HolidayINN.DAL.Model;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,14 +56,27 @@ namespace Hotel.HolidayINN
                 return false;
             }
         }
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
             try
             {
                 using (var db = new LiteDatabase(path))
                 {
                     var col = db.GetCollection<T>(typeof(T).Name);
-                    return col.FindAll();
+
+                    var data  = col
+                        .FindAll().ToList();
+
+                    LiteDB.BsonMapper.Global.Entity<Room>().DbRef(x => x.RoomProperties, "RoomProperties");
+
+                    var col3 = db.GetCollection<Room>(typeof(Room).Name);
+                    var temp2 = col3.Include(x => x.RoomProperties)
+                        .FindAll().ToList();
+
+                    var col2 = db.GetCollection<RoomProperty>(typeof(RoomProperty).Name);
+                    var temp = col2.FindAll().ToList();
+
+                    return col.FindAll().ToList();
                 }
             }
             catch (Exception E)
